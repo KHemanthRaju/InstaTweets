@@ -3,6 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { guestLoginDetails, logoImageURL } from "../../../utils/constants";
 import { AuthContext } from "../../../contexts/auth-context";
+import { PrimaryButton, SecondaryButton } from "../../../components/Buttons";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -76,8 +77,8 @@ export const Login = () => {
             />
           )}
         </div>
-        <button type="submit">Login</button>
-        <button
+        <PrimaryButton type="submit">Login</PrimaryButton>
+        <SecondaryButton
           className="py-2 rounded-md"
           type="submit"
           onClick={() =>
@@ -89,7 +90,7 @@ export const Login = () => {
           }
         >
           Login as Guest
-        </button>
+        </SecondaryButton>
       </form>
       <p className="my-[1rem] text-sm">
         <span
