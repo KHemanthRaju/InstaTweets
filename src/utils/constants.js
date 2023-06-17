@@ -8,3 +8,8 @@ export const guestLoginDetails = {
   username: "hemanthraju",
   password: "hemanth@123",
 };
+
+export const actionTypes = {
+  GET_ALL_POSTS: "GET_ALL_POSTS",
+  GET_ALL_USERS: "GET_ALL_USERS",
+};
