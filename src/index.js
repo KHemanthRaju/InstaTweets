@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { makeServer } from "./server";
 import { AuthProvider } from "./contexts/auth-context";
 import { ThemeProvider } from "./contexts/theme-context";
+import { UsersProvider } from "./contexts/user-context";
+import { PostsProvider } from "./contexts/post-context";
 
 makeServer();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +17,11 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
-          <App />
+          <UsersProvider>
+            <PostsProvider>
+              <App />
+            </PostsProvider>
+          </UsersProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
