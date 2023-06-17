@@ -1,11 +1,61 @@
-import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/auth-context";
+import { UserAvatar } from "./UserAvatar";
+import { PrimaryButton } from "./Buttons";
+import { useUsers } from "../contexts/user-context";
 
 const SuggestedUsers = () => {
+  const { currentUser } = useContext(AuthContext);
+  const {
+    usersState: { users },
+  } = useUsers();
+
+  const userData = users?.find(
+    (user) => user?.username === currentUser?.username
+  );
+
+  const filteredUsers = users
+    ?.filter((dbUser) => dbUser.username !== userData?.username)
+    ?.filter(
+      (eachUser) =>
+        !userData?.following?.find(
+          (item) => item.username === eachUser.username
+        )
+    );
+
   return (
-    <div>
-      <h2>Suggested Users</h2>
-    </div>
+    <>
+      {filteredUsers.length ? (
+        <div className="flex flex-col justify-center gap-4 m-4 mt-0 px-4 py-3 bg-lighterPrimary rounded-md h-max sticky top-[85px] z-0 dark:text-darkColor">
+          <div className="text-lg font-bold tracking-wide">Who to Follow</div>
+
+          {filteredUsers?.map((user) => (
+            <div
+              key={user._id}
+              className="flex items-start gap-2 cursor-pointer"
+            >
+              <UserAvatar user={user} className="h-9 w-9" />
+
+              <div className="flex flex-col grow -mt-0.5">
+                <span className="text-sm">
+                  {user.firstName + " " + user.lastName}
+                </span>
+                <span className="text-sm text-[grey] -mt-1">
+                  @{user.username}
+                </span>
+              </div>
+
+              <PrimaryButton className="py-1 px-2 rounded-md">
+                Follow
+              </PrimaryButton>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
-export default SuggestedUsers;
+export { SuggestedUsers };

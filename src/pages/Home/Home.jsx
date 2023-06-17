@@ -1,16 +1,60 @@
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import { ThemeContext } from "../../contexts/theme-context";
-import SuggestedUsers from "../../components/SuggestedUsers";
+import { usePosts } from "../../contexts/post-context";
+import { SideBar } from "../../components/SideBar";
+import { SearchBar } from "../../components/SearchBar";
+import { PostCard } from "../../components/PostCard";
+import { NewPost } from "../../components/NewPost";
+import { SortBar } from "../../components/SortBar";
+import { SuggestedUsers } from "../../components/SuggestedUsers";
 
 export const Home = () => {
-  const { logoutHandler } = useContext(AuthContext);
+  const { currentUser, logoutHandler } = useContext(AuthContext);
   const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext);
+  const {
+    postsState: { posts },
+    isLoading,
+  } = usePosts();
+
+  const followingusers = currentUser?.following;
+
+  const postsOfFollowingUsers = posts?.filter(
+    (post) =>
+      followingusers?.some(
+        (followingUser) => followingUser?.username === post?.username
+      ) || currentUser?.username === post?.username
+  );
   return (
-    <div className="dark:bg-darkGrey dark:text-lightGrey transition-all duration-500 min-h-screen">
-      <SuggestedUsers />
-      <br />
-      <br />
+    <div className="grid sm:grid-cols-[5rem_1fr] lg:grid-cols-[12rem_1fr] xl:grid-cols-[13rem_1fr_20rem] w-[100%] lg:w-[80%] mb-16 sm:m-auto dark:bg-darkGrey dark:text-lightGrey transition-all duration-500">
+      <SideBar />
+      <div className="sm:border-x border-darkGrey dark:border-lightGrey">
+        <h1 className=" p-4 sticky top-0 backdrop-blur-md z-20 border-b border-darkGrey dark:border-lightGrey flex items-center justify-between">
+          <span className="text-xl font-bold">Home</span>
+          <div className="block xl:hidden">
+            <SearchBar />
+          </div>
+        </h1>
+        <div>
+          <NewPost />
+          <SortBar />
+          <div>
+            {isLoading ? (
+              "Loader"
+            ) : postsOfFollowingUsers?.length > 0 ? (
+              [...postsOfFollowingUsers].map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))
+            ) : (
+              <div className="p-4 text-center">No posts</div>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="hidden xl:block">
+        <SideBar />
+        <SuggestedUsers />
+      </div>
       <button onClick={logoutHandler}>Logout</button>
       <br />
       <button onClick={() => setIsDarkTheme(!isDarkTheme)}>
