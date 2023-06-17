@@ -5,6 +5,9 @@ import { Link, Route, Routes } from "react-router-dom";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { Home } from "./pages/Home/Home";
 import { PostCard } from "./components/PostCard";
+import { Authentication } from "./pages/Authentication/Authentication";
+import { Login } from "./pages/Authentication/formComponents/Login";
+import { Signup } from "./pages/Authentication/formComponents/Signup";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -37,6 +40,10 @@ function App() {
         <Link to="/posts">Posts</Link>
       </nav>
       <Routes>
+        <Route path="/auth" element={<Authentication />}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
         <Route path="/" element={<Home />} />
         <Route path="/posts" element={<PostCard />} />
         <Route path="/*" element={<NotFound />} />

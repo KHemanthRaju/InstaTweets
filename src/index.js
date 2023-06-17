@@ -5,13 +5,25 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { makeServer } from "./server";
+import { AuthProvider } from "./contexts/auth-context";
+import { ThemeProvider } from "./contexts/theme-context";
+import { UsersProvider } from "./contexts/user-context";
+import { PostsProvider } from "./contexts/post-context";
 
 makeServer();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <ThemeProvider>
+          <UsersProvider>
+            <PostsProvider>
+              <App />
+            </PostsProvider>
+          </UsersProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
