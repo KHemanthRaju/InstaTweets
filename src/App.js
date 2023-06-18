@@ -34,11 +34,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Social Media Application</h1>
+      {/* <h1>Social Media Application</h1>
       <nav>
         <Link to="/">Home ||</Link>
         <Link to="/posts">Posts</Link>
-      </nav>
+      </nav> */}
       <Routes>
         <Route path="/auth" element={<Authentication />}>
           <Route path="login" element={<Login />} />

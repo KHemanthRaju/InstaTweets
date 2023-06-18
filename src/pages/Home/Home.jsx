@@ -52,7 +52,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="hidden xl:block">
-        <SideBar />
+        <SearchBar />
         <SuggestedUsers />
       </div>
       <button onClick={logoutHandler}>Logout</button>

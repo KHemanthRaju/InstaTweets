@@ -14,7 +14,7 @@ import { UserAvatar } from "./UserAvatar";
 
 export const SideBar = () => {
   const { currentUser } = useContext(AuthContext);
-
+  console.log("Current User:", currentUser);
   const activeStyle = {
     backgroundColor: "orange",
     borderRadius: "9999px",

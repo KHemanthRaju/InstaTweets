@@ -7,7 +7,7 @@ export const loginService = async (username, password) =>
   });
 
 export const signupService = async (username, password, firstName, lastName) =>
-  axios.post("/api/auth/signup", {
+  await axios.post("/api/auth/signup", {
     username: username,
     password: password,
     firstName: firstName,

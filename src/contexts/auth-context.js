@@ -14,14 +14,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setIsLoading] = useState(false);
 
   const loginHandler = async ({ username, password }) => {
+    console.log("Username", username);
     setIsLoading(true);
     try {
       const response = await loginService(username, password);
+      console.log("Response :", response);
       const {
         status,
         data: { encodedToken, foundUser },
       } = response;
-      if (status === 201) {
+      if (status === 200) {
         localStorage.setItem(
           "loginDetails",
           JSON.stringify({ token: encodedToken, user: foundUser })

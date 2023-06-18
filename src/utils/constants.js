@@ -5,8 +5,8 @@ export const loginPageHeroImg =
   "https://res.cloudinary.com/dxnbnviuz/image/upload/v1686487758/socialMedia/front-page-img1_ig7ywf.jpg";
 
 export const guestLoginDetails = {
-  username: "hemanthraju",
-  password: "hemanth@123",
+  username: "emilysmith",
+  password: "emily@123Smith",
 };
 
 export const actionTypes = {
